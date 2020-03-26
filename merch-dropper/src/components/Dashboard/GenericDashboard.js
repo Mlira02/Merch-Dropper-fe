@@ -1,24 +1,22 @@
 import React from "react";
-import SideBar from "./SideBar";
-import Chart from "./Chart";
+import GenericSideBar from "./GenericSideBar";
 import { StyledDiv, BigContainer } from "./Styled";
 
 let key = localStorage.getItem("profile");
 let profileObj = JSON.parse(key);
 let nickname = profileObj.nickname;
 
-const Dashboard = props => {
+const GenericDashboard = props => {
   return (
     <BigContainer className="dashboard-container">
       <div className="user-info">
         <h2 align="right"> Welcome, {nickname}! </h2>
       </div>
       <StyledDiv className="dashboard-components">
-        <SideBar />
-        <Chart />
+        <GenericSideBar />
       </StyledDiv>
     </BigContainer>
   );
 };
 
-export default Dashboard;
+export default GenericDashboard;
