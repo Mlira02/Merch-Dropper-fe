@@ -12,6 +12,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import GenericDashboard from "./components/Dashboard/GenericDashboard";
 import SignUp from "./components/Auth/SignUp";
 import LearnMore from "./components/LearnMore";
+import StoreForm from "./components/StoreFormEx";
 
 function App() {
   return (
@@ -26,9 +27,14 @@ function App() {
         path="/products"
         render={props => <ProductDisplay {...props} />}
       />
+      <Route exact path="/create" component={StoreForm} />} />
+      <Route
+        exact
+        path="/stores/:storeID"
+        render={props => <ProductDisplay {...props} />}
+      />
       <Route exact path="/dashboard" component={GenericDashboard} />
       <Route exact path="/dashboard/:userName" component={Dashboard} />
-
       <Route exact path="/signup" component={SignUp} />
       <Route exact path="/designshirt" component={DesignShirt} />
       <Route exact path="/learnmore" component={LearnMore} />

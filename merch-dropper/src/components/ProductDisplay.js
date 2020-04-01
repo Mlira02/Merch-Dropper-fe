@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 import NavBar from "./NavBar";
 import ProductCard from "./ProductCard";
 import { connect } from "react-redux";
@@ -7,22 +7,29 @@ import { addToCart } from "../store/actions";
 import { Container, Row, Col } from "reactstrap";
 import "../App.css";
 
-
-const ProductDisplay = ({ products, addToCart }) => {
+const ProductDisplay = ({ products, addToCart, match, location }) => {
   // console.log('productdisplay/products', products)
   const [shirts, setShirts] = useState([]);
-
+  console.log({ match, location });
+  //edit to filter products by user associated store
   useEffect(() => {
-    axios.get('https://merchdropper-production.herokuapp.com/api/products')
+    axios
+      .get("https://merchdropper-production.herokuapp.com/api/products")
       .then(res => {
         // console.log('res', res.data)
-        setShirts(res.data);
-      })
-  }, []);
+        const shirtsToDisplay = match.params.storeID
+          ? res.data.filter(
+              product => product.storeID === parseInt(match.params.storeID)
+            )
+          : res.data;
+
+        setShirts(shirtsToDisplay);
+      });
+  }, [match.params, match.params.storeID]);
 
   return (
     <Container fluid="true" className="container-margin">
-       {/*<NavBar />*/}
+      {/*<NavBar />*/}
       <Row>
         <Col sm="7" className="flex ">
           {shirts.map((product, id) => (
@@ -41,7 +48,7 @@ const ProductDisplay = ({ products, addToCart }) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   // console.log("state in products", state);
   return {
     cart: state.CartReducer.cart,
