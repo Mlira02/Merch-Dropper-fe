@@ -11,21 +11,63 @@ const ProductDisplay = ({ products, addToCart, match, location }) => {
   // console.log('productdisplay/products', products)
   const [shirts, setShirts] = useState([]);
   console.log({ match, location });
+
   //edit to filter products by user associated store
   useEffect(() => {
-    axios
-      .get("https://merchdropper-production.herokuapp.com/api/products")
-      .then(res => {
-        // console.log('res', res.data)
-        const shirtsToDisplay = match.params.storeID
-          ? res.data.filter(
-              product => product.storeID === parseInt(match.params.storeID)
-            )
-          : res.data;
+    async function getProducts() {
+      let storeID = "";
+      const res = await axios.get(
+        `https://merchdropper-production.herokuapp.com/api/stores/storename/${match.params.store_name}`
+      );
+      storeID = res.data.id;
+      console.log(res.data.id);
+      const res2 = await axios.get(
+        "https://merchdropper-production.herokuapp.com/api/products"
+      );
+      const shirtsToDisplay = storeID
+        ? res2.data.filter(product => product.storeID === parseInt(storeID))
+        : res2.data;
+      setShirts(shirtsToDisplay);
+    }
+    getProducts();
+  }, [match.params, match.params.store_name]);
 
-        setShirts(shirtsToDisplay);
-      });
-  }, [match.params, match.params.storeID]);
+  // useEffect(() => {
+  //   axios
+  //     .get("https://merchdropper-production.herokuapp.com/api/products")
+  //     .then(res => {
+  //       // console.log('res', res.data)
+  //       const shirtsToDisplay = match.params.storeID
+  //         ? res.data.filter(
+  //             product => product.storeID === parseInt(match.params.storeID)
+  //           )
+  //         : res.data;
+  //
+  //       setShirts(shirtsToDisplay);
+  //     });
+  // }, [match.params, match.params.storeID]);
+
+  // useEffect(() => {
+  //   axios
+  //     .get("https://merchdropper-production.herokuapp.com/api/products")
+  //     .then(res => {
+  //       // console.log('res', res.data)
+  //       axios
+  //         .get(
+  //           `https://merchdropper-production.herokuapp.com/api/stores/${match.params.storeID}`
+  //         )
+  //         .then(response => {
+  //           console.log(response.data.store_name);
+  //         });
+  //       const shirtsToDisplay = match.params.storeID
+  //         ? res.data.filter(
+  //             product => product.storeID === parseInt(match.params.storeID)
+  //           )
+  //         : res.data;
+  //
+  //       setShirts(shirtsToDisplay);
+  //     });
+  // }, [match.params, match.params.storeID]);
 
   return (
     <Container fluid="true" className="container-margin">

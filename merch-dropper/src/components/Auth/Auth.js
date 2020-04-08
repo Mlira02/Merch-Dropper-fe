@@ -62,8 +62,12 @@ export const Auth0Provider = ({
       // now we check the state, if it's true, we use the .getUser() method inherited from Auth0Client
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser();
+        const token = await auth0FromHook.getTokenSilently();
+        const id = user.sub.split("|");
         setUser(user);
         localStorage.setItem("profile", JSON.stringify(user));
+        localStorage.setItem("id", id[1]);
+        localStorage.setItem("token", token);
       }
 
       setLoading(false);
