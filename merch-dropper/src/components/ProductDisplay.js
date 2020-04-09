@@ -12,12 +12,13 @@ const ProductDisplay = ({ products, addToCart, match, location }) => {
   const [shirts, setShirts] = useState([]);
   console.log({ match, location });
 
-  //edit to filter products by user associated store
+  // filters products by user associated store
   useEffect(() => {
     async function getProducts() {
       let storeID = "";
+      //need to chage GET request to 'stores/domain/${match.params.domain_name}' once backend code is pushed
       const res = await axios.get(
-        `https://merchdropper-production.herokuapp.com/api/stores/storename/${match.params.store_name}`
+        `https://merchdropper-production.herokuapp.com/api/stores/domain/${match.params.domain_name}`
       );
       storeID = res.data.id;
       console.log(res.data.id);

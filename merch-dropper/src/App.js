@@ -30,7 +30,7 @@ function App() {
       <Route exact path="/create" component={StoreForm} />} />
       <Route
         exact
-        path="/stores/:store_name"
+        path="/stores/:domain_name"
         render={props => <ProductDisplay {...props} />}
       />
       <Route exact path="/dashboard" component={GenericDashboard} />
