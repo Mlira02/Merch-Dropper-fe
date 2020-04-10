@@ -26,6 +26,8 @@ function App() {
         path="/products"
         render={props => <ProductDisplay {...props} />}
       />
+      <Route exact path="/dashboard" component={Dashboard} />
+
       <Route
         exact
         path="/stores/:domain_name"
