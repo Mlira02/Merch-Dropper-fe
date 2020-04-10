@@ -3,10 +3,6 @@ import SideBar from "./SideBar";
 import Chart from "./Chart";
 import { StyledDiv, BigContainer } from "./Styled";
 
-// let key = localStorage.getItem("profile");
-// let profileObj = JSON.parse(key);
-// let nickname = profileObj.nickname;
-
 const Dashboard = props => {
   return (
     <BigContainer className="dashboard-container">

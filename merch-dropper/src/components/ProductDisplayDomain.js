@@ -7,18 +7,31 @@ import { addToCart } from "../store/actions";
 import { Container, Row, Col } from "reactstrap";
 import "../App.css";
 
-const ProductDisplay = ({ products, addToCart }) => {
+const ProductDisplayDomain = ({ products, addToCart, match, location }) => {
   // console.log('productdisplay/products', products)
   const [shirts, setShirts] = useState([]);
+  console.log({ match, location });
 
+  // filters products by user associated store
   useEffect(() => {
-    axios
-      .get("https://merchdropper-production.herokuapp.com/api/products")
-      .then(res => {
-        // console.log('res', res.data)
-        setShirts(res.data);
-      });
-  }, []);
+    async function getProducts() {
+      let storeID = "";
+      // GET request to 'stores/domain/${match.params.domain_name}'
+      const res = await axios.get(
+        `https://merchdropper-production.herokuapp.com/api/stores/domain/${match.params.domain_name}`
+      );
+      storeID = res.data.id;
+      console.log(res.data.id);
+      const res2 = await axios.get(
+        "https://merchdropper-production.herokuapp.com/api/products"
+      );
+      const shirtsToDisplay = storeID
+        ? res2.data.filter(product => product.storeID === parseInt(storeID))
+        : res2.data;
+      setShirts(shirtsToDisplay);
+    }
+    getProducts();
+  }, [match.params, match.params.store_name]);
 
   return (
     <Container fluid="true" className="container-margin">
@@ -52,4 +65,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { addToCart }
-)(ProductDisplay);
+)(ProductDisplayDomain);

@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 // import "./App.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import ProductDisplayDomain from "./components/ProductDisplayDomain";
 import ProductDisplay from "./components/ProductDisplay";
 import CheckoutPage from "./components/Cart/Checkout";
 import Home from "./components/Home.js";
@@ -27,14 +28,12 @@ function App() {
         path="/products"
         render={props => <ProductDisplay {...props} />}
       />
-      <Route exact path="/create" component={StoreForm} />} />
       <Route
         exact
         path="/stores/:domain_name"
-        render={props => <ProductDisplay {...props} />}
+        render={props => <ProductDisplayDomain {...props} />}
       />
       <Route exact path="/dashboard" component={GenericDashboard} />
-      <Route exact path="/dashboard/:userName" component={Dashboard} />
       <Route exact path="/signup" component={SignUp} />
       <Route exact path="/designshirt" component={DesignShirt} />
       <Route exact path="/learnmore" component={LearnMore} />
