@@ -10,10 +10,8 @@ import Home from "./components/Home.js";
 import ShoppingCart from "./components/Cart/ShoppingCart";
 import DesignShirt from "./components/Shirt/DesignShirt";
 import Dashboard from "./components/Dashboard/Dashboard";
-import GenericDashboard from "./components/Dashboard/GenericDashboard";
 import SignUp from "./components/Auth/SignUp";
 import LearnMore from "./components/LearnMore";
-import StoreForm from "./components/StoreFormEx";
 
 function App() {
   return (
@@ -33,7 +31,6 @@ function App() {
         path="/stores/:domain_name"
         render={props => <ProductDisplayDomain {...props} />}
       />
-      <Route exact path="/dashboard" component={GenericDashboard} />
       <Route exact path="/signup" component={SignUp} />
       <Route exact path="/designshirt" component={DesignShirt} />
       <Route exact path="/learnmore" component={LearnMore} />
