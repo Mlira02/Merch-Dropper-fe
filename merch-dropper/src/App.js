@@ -17,6 +17,8 @@ import Redirect from "./components/Redirect";
 
 import CreateStore from "./components/Onboarding/CreateStore";
 
+//comment for deploy 
+
 function App() {
   return (
     <div className="App">
